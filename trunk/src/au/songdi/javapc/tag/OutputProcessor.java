@@ -17,9 +17,9 @@ public final class OutputProcessor extends TagProcessor {
 	void doExportProcess(Iterator it,DestFileWriter writer) {
 		// TODO Auto-generated method stub
 		String tagline = (String) it.next();
-		// sample: something before /** <% SCREEN_WIDTH %> **/ something after
+		// sample: // #<< SCREEN_WIDTH
 		 StringTokenizer st = new StringTokenizer(tagline);
-		   if(st.countTokens() == 5)
+		   if(st.countTokens() == 3)
 		    {
 			   int index=0;
 			   String key=null;
@@ -32,7 +32,7 @@ public final class OutputProcessor extends TagProcessor {
 				   }
 				   index++;
 			   }
-			String blank =  tagline.substring(0,tagline.indexOf("/**"));
+			String blank =  tagline.substring(0,tagline.indexOf("#<<"));
 			ContextManager context = ContextManager.getContext();
 	    	String value = context.getDefineValue(key);
 	    	StringBuffer sb = new StringBuffer(128);
