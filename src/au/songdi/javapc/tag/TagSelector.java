@@ -69,8 +69,8 @@ public final class TagSelector {
 		"^\\s*("+ comment +")*\\s+#else\\s*$",
 		// #endif
 		"^\\s*("+ comment +")*\\s+#endif\\s*$",
-		// <% param %>
-		"^\\s*("+ comment +")*\\s+<%\\s+[A-Z_]+\\w+\\s+%>\\s*$",
+		// #<< param
+		"^\\s*("+ comment +")*\\s+#<<\\s+[A-Za-z_]+\\w*\\s*$",
 		// #include file
 		"^\\s*("+ comment +")*\\s+#include\\s+\".+\"\\s*$",
 		// #whatever else

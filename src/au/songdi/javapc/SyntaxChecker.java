@@ -64,7 +64,7 @@ public final class SyntaxChecker {
 				if ((p = TagSelector.getTagProcessor(current_line)) != null) {
 					if(p instanceof UnknownProcessor)
 						throw new SyntaxException(
-								createExceptionString(" Expect one /** #ifdef **/, /** #ifndef **/, /** #else **/ or /** #endif **/"));
+								createExceptionString(" Expect one  #ifdef ,  #ifndef ,  #else  or  #endif "));
 					String token = this.getTokenString(p);
 					if (token != null)
 						this.analyseToken(token);
@@ -72,7 +72,7 @@ public final class SyntaxChecker {
 			}
 			if(!this.keyword_tokens.empty())
 				throw new SyntaxException(
-						createExceptionString(" Expect one /** #ifdef **/, /** #ifndef **/, /** #else **/ or /** #endif **/ before the current line"));
+						createExceptionString(" Expect one  #ifdef ,  #ifndef ,  #else  or  #endif  before the current line"));
 			return true;
 		} catch (SyntaxException e) {
 			throw e;
@@ -145,13 +145,13 @@ public final class SyntaxChecker {
 	private void process_Else(String token) throws SyntaxException {
 		if(this.keyword_tokens.empty())
 			throw new SyntaxException(
-					createExceptionString(" Expect one /** #ifdef **/ or /** #ifndef **/ before the current line"));
+					createExceptionString(" Expect one  #ifdef  or  #ifndef  before the current line"));
 		String top_token = (String) this.keyword_tokens.peek();
 		if (top_token.equals("#ifdef") || top_token.equals("#ifndef")) {
 			this.keyword_tokens.push(token);
 		} else {
 			throw new SyntaxException(
-					createExceptionString(" Expect one /** #ifdef **/ or /** #ifndef **/ before the current line"));
+					createExceptionString(" Expect one  #ifdef  or  #ifndef  before the current line"));
 		}
 	}
 	
@@ -159,7 +159,7 @@ public final class SyntaxChecker {
 	 * Push the token into stack
 	 * 
 	 * @param token
-	 *            the token string of #endid
+	 *            the token string of #endif
 	 * @return void
 	 *
 	 */
@@ -167,7 +167,7 @@ public final class SyntaxChecker {
 	private void process_Endif(String token) throws SyntaxException {
 		if(this.keyword_tokens.empty())
 			throw new SyntaxException(
-					createExceptionString(" Expect one /** #ifdef **/, /** #ifndef **/ or /** #else **/ before the current line"));
+					createExceptionString(" Expect one  #ifdef ,  #ifndef  or  #else  before the current line"));
 		String top_token = (String) this.keyword_tokens.peek();
 		if (top_token.equals("#ifdef") || top_token.equals("#ifndef")) {
 			// pop ifdef or ifndef
@@ -183,11 +183,11 @@ public final class SyntaxChecker {
 				this.keyword_tokens.pop();
 			} else {
 				throw new SyntaxException(
-						createExceptionString("Expect one /** #ifdef **/ or /** #ifndef **/ before the current line"));
+						createExceptionString("Expect one  #ifdef  or  #ifndef  before the current line"));
 			}
 		} else {
 			throw new SyntaxException(
-					createExceptionString("Expect one /** #ifdef **/, /** #ifndef **/ or /** #else **/ before the current line"));
+					createExceptionString("Expect one  #ifdef ,  #ifndef  or  #else  before the current line"));
 		}
 	}
 
